@@ -1,0 +1,23 @@
+{% for note in notes %}
+
+  <div class="noteBorder note">
+
+      {% if is_granted('ROLE_ADMIN') %}
+        <div>
+          <a href="{{path('edit_notes')}}?id={{note.id}}"> editer </a> &nbsp;&nbsp;
+          <a href="javascript:if(confirm('supprimer la note?')){document.location.href='{{path('delete_note')}}?id={{note.id}}'}"> supprimer </a>
+        </div>
+      {% endif %}
+
+      <div class="date">{{note.date|date('d/m/Y')}}</div>
+        <div class="note_content">
+          <div class="center">
+            <h2 class="title">{{note.title}}</h2>
+            <img class="img_note" src="{{note.img}}" />
+          </div>
+          <br/>
+          <p>{{note.text | raw }}
+        </p>
+      </div>
+    </div>
+{% endfor %} 
