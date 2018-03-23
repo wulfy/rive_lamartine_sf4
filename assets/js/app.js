@@ -1,3 +1,4 @@
+//requires used by encore
 require('../css/app.css');
 // Load all images from images
 require.context('../images', false, /\.png$|.ico$|.jpg$|.mp4$/);

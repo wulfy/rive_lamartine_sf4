@@ -7,7 +7,7 @@ use Doctrine\ORM\Mapping as ORM;
 
 /**
  * @ORM\Entity
- * @ORM\Table(name="Notes")
+ * @ORM\Table(name="notes") warning ! case sensitive 
  */
 class Notes
 {
