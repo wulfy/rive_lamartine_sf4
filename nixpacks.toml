@@ -1,2 +1,11 @@
 [variables]
 NIXPACKS_PHP_ROOT_DIR = "/app/public"
+APP_ENV = "prod"
+APP_DEBUG = "0"
+
+[phases.build]
+cmds = [
+    "composer install --no-dev --optimize-autoloader --no-interaction",
+    "php bin/console cache:clear --env=prod --no-warmup",
+    "php bin/console assets:install public --env=prod",
+]
