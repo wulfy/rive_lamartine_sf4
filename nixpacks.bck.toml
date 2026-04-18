@@ -1,5 +1,0 @@
-[phases.setup]
-nixPkgs = ["php84Packages.composer", "nodejs_22", "yarn", "nginx"]
-
-[start]
-cmd = "php-fpm -D && nginx -g 'daemon off;'"
