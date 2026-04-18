@@ -3,9 +3,6 @@ NIXPACKS_PHP_ROOT_DIR = "/app/public"
 APP_ENV = "prod"
 APP_DEBUG = "0"
 
-[phases.setup]
-nixPkgs = ["nodejs_22"]
-
 [phases.build]
 cmds = [
     "composer install --no-dev --optimize-autoloader --no-interaction",
