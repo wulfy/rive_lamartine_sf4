@@ -1,6 +1,12 @@
 {
+    "dependencies": {
+        "jquery": "^3.7"
+    },
     "devDependencies": {
-        "@symfony/webpack-encore": "^0.17.0"
+        "@symfony/webpack-encore": "^4.0"
+    },
+    "engines": {
+        "node": ">=22.0.0"
     },
     "license": "UNLICENSED",
     "private": true,
