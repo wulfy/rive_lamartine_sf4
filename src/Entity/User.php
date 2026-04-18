@@ -1,196 +1,101 @@
 <?php
 
-// src/Entity/User.php
 namespace App\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
 
-
-/**
- * @ORM\Entity
- * @ORM\Table(name="users")
- */
-class User implements UserInterface, \Serializable
+#[ORM\Entity]
+#[ORM\Table(name: 'users')]
+class User implements UserInterface, PasswordAuthenticatedUserInterface
 {
-    /**
-     * @ORM\Column(type="integer")
-     * @ORM\Id
-     * @ORM\GeneratedValue(strategy="AUTO")
-     */
-    private $id;
+    #[ORM\Column(type: 'integer')]
+    #[ORM\Id]
+    #[ORM\GeneratedValue(strategy: 'AUTO')]
+    private ?int $id = null;
 
-    /**
-     * @ORM\Column(type="string", length=25, unique=true)
-     */
-    private $username;
+    #[ORM\Column(type: 'string', length: 25, unique: true)]
+    private ?string $username = null;
 
-    /**
-     * @ORM\Column(type="string", length=64)
-     */
-    private $password;
+    #[ORM\Column(type: 'string', length: 64)]
+    private ?string $password = null;
 
-    /**
-     * @ORM\Column(type="string", length=60, unique=true)
-     */
-    private $email;
+    #[ORM\Column(type: 'string', length: 60, unique: true)]
+    private ?string $email = null;
 
-    /**
-     * @ORM\Column(name="is_active", type="boolean")
-     */
-    private $isActive;
+    #[ORM\Column(name: 'is_active', type: 'boolean')]
+    private bool $isActive = true;
 
-    /**
-     * @ORM\Column(name="roles", type="simple_array")
-     */
-    private $roles;
+    #[ORM\Column(name: 'roles', type: 'simple_array')]
+    private array $roles = [];
 
-    public function __construct()
+    public function getUserIdentifier(): string
     {
-        $this->isActive = true;
-        // may not be needed, see section on salt below
-        // $this->salt = md5(uniqid(null, true));
+        return (string) $this->username;
     }
 
-    public function getUsername()
-    {
-        return $this->username;
-    }
-
-    public function getSalt()
-    {
-        // you *may* need a real salt depending on your encoder
-        // see section on salt below
-        return null;
-    }
-
-    public function getPassword()
+    public function getPassword(): ?string
     {
         return $this->password;
     }
 
-    public function getRoles()
+    public function getRoles(): array
     {
-        return $this->roles;
+        $roles = $this->roles;
+        $roles[] = 'ROLE_USER';
+
+        return array_unique($roles);
     }
 
-    public function eraseCredentials()
+    public function eraseCredentials(): void
     {
     }
 
-    /** @see \Serializable::serialize() */
-    public function serialize()
-    {
-        return serialize(array(
-            $this->id,
-            $this->username,
-            $this->password,
-            // see section on salt below
-            // $this->salt,
-        ));
-    }
-
-    /** @see \Serializable::unserialize() */
-    public function unserialize($serialized)
-    {
-        list (
-            $this->id,
-            $this->username,
-            $this->password,
-            // see section on salt below
-            // $this->salt
-        ) = unserialize($serialized);
-    }
-
-    /**
-     * Get id
-     *
-     * @return integer 
-     */
-    public function getId()
+    public function getId(): ?int
     {
         return $this->id;
     }
 
-    /**
-     * Set username
-     *
-     * @param string $username
-     * @return Users
-     */
-    public function setUsername($username)
+    public function setUsername(string $username): static
     {
         $this->username = $username;
 
         return $this;
     }
 
-    /**
-     * Set password
-     *
-     * @param string $password
-     * @return Users
-     */
-    public function setPassword($password)
+    public function setPassword(string $password): static
     {
         $this->password = $password;
 
         return $this;
     }
 
-    /**
-     * Set email
-     *
-     * @param string $email
-     * @return Users
-     */
-    public function setEmail($email)
+    public function setEmail(string $email): static
     {
         $this->email = $email;
 
         return $this;
     }
 
-    /**
-     * Get email
-     *
-     * @return string 
-     */
-    public function getEmail()
+    public function getEmail(): ?string
     {
         return $this->email;
     }
 
-    /**
-     * Set isActive
-     *
-     * @param boolean $isActive
-     * @return Users
-     */
-    public function setIsActive($isActive)
+    public function setIsActive(bool $isActive): static
     {
         $this->isActive = $isActive;
 
         return $this;
     }
 
-    /**
-     * Get isActive
-     *
-     * @return boolean 
-     */
-    public function getIsActive()
+    public function getIsActive(): bool
     {
         return $this->isActive;
     }
 
-    /**
-     * Set roles
-     *
-     * @param array $roles
-     * @return Users
-     */
-    public function setRoles($roles)
+    public function setRoles(array $roles): static
     {
         $this->roles = $roles;
 

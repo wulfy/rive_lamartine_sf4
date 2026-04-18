@@ -1,141 +1,79 @@
 <?php
 
-// src/Entity/Notes.php
 namespace App\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 
-/**
- * @ORM\Entity
- * @ORM\Table(name="notes") warning ! case sensitive 
- */
+#[ORM\Entity]
+#[ORM\Table(name: 'notes')]
 class Notes
 {
-    /**
-     * @ORM\Id
-     * @ORM\Column(type="integer")
-     * @ORM\GeneratedValue(strategy="AUTO")
-     */
-    protected $id;
+    #[ORM\Id]
+    #[ORM\Column(type: 'integer')]
+    #[ORM\GeneratedValue(strategy: 'AUTO')]
+    protected ?int $id = null;
 
-    /**
-     * @ORM\Column(type="string", length=100)
-     */
-    protected $title;
+    #[ORM\Column(type: 'string', length: 100)]
+    protected ?string $title = null;
 
-    /**
-     * @ORM\Column(type="string", length=300, nullable= TRUE)
-     */
-    protected $img;
+    #[ORM\Column(type: 'string', length: 300, nullable: true)]
+    protected ?string $img = null;
 
-    /**
-     * @ORM\Column(type="date")
-     */
-    protected $date;
+    #[ORM\Column(type: 'date')]
+    protected ?\DateTimeInterface $date = null;
 
-    /**
-     * @ORM\Column(type="text")
-     */
-    protected $text;
+    #[ORM\Column(type: 'text')]
+    protected ?string $text = null;
 
-    /**
-     * Get id
-     *
-     * @return integer 
-     */
-    public function getId()
+    public function getId(): ?int
     {
         return $this->id;
     }
 
-    /**
-     * Set title
-     *
-     * @param string $title
-     * @return Notes
-     */
-    public function setTitle($title)
+    public function setTitle(string $title): static
     {
         $this->title = $title;
 
         return $this;
     }
 
-    /**
-     * Get title
-     *
-     * @return string 
-     */
-    public function getTitle()
+    public function getTitle(): ?string
     {
         return $this->title;
     }
 
-    /**
-     * Set img
-     *
-     * @param string $img
-     * @return Notes
-     */
-    public function setImg($img)
+    public function setImg(?string $img): static
     {
         $this->img = $img;
 
         return $this;
     }
 
-    /**
-     * Get img
-     *
-     * @return string 
-     */
-    public function getImg()
+    public function getImg(): ?string
     {
         return $this->img;
     }
 
-    /**
-     * Set date
-     *
-     * @param \DateTime $date
-     * @return Notes
-     */
-    public function setDate($date)
+    public function setDate(\DateTimeInterface $date): static
     {
         $this->date = $date;
 
         return $this;
     }
 
-    /**
-     * Get date
-     *
-     * @return \DateTime 
-     */
-    public function getDate()
+    public function getDate(): ?\DateTimeInterface
     {
         return $this->date;
     }
 
-    /**
-     * Set text
-     *
-     * @param string $text
-     * @return Notes
-     */
-    public function setText($text)
+    public function setText(string $text): static
     {
         $this->text = $text;
 
         return $this;
     }
 
-    /**
-     * Get text
-     *
-     * @return string 
-     */
-    public function getText()
+    public function getText(): ?string
     {
         return $this->text;
     }

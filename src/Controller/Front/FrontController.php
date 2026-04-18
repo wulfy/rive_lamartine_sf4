@@ -2,26 +2,20 @@
 
 namespace App\Controller\Front;
 
-use Symfony\Component\Routing\Annotation\Route;
-use Symfony\Bundle\FrameworkBundle\Controller\Controller;
-use Symfony\Component\HttpFoundation\Response;
-
-use App\Entity\Notes;
 use App\Common\Database;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\Routing\Attribute\Route;
 
-
-class FrontController extends Controller
+class FrontController extends AbstractController
 {
-    /**
-     * @Route("/", name="homepage")
-     */
-    public function displayHomepage(Database $database)
+    #[Route('/', name: 'homepage')]
+    public function displayHomepage(Database $database): Response
     {
         $notes = $database->getNotes();
 
-    	return $this->render('front/index.html.twig',array(
-			'notes' => $notes,
-		));
+        return $this->render('front/index.html.twig', [
+            'notes' => $notes,
+        ]);
     }
-
 }
