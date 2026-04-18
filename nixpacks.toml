@@ -2,4 +2,4 @@
 nixPkgs = ["php84Packages.composer", "nodejs_22", "yarn", "nginx"]
 
 [start]
-cmd = "php84-fpm -D && nginx -g 'daemon off;'"
+cmd = "php-fpm -D && nginx -g 'daemon off;'"
