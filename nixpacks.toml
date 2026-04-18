@@ -6,6 +6,8 @@ APP_DEBUG = "0"
 [phases.build]
 cmds = [
     "composer install --no-dev --optimize-autoloader --no-interaction",
+    "npm install",
+    "npm run build",
     "mkdir -p var/cache/prod var/log",
     "php bin/console cache:clear --env=prod --no-warmup",
     "php bin/console cache:warmup --env=prod --no-optional-warmers",
