@@ -2,6 +2,7 @@
 
 namespace App\Entity;
 
+use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity]
@@ -9,20 +10,20 @@ use Doctrine\ORM\Mapping as ORM;
 class Notes
 {
     #[ORM\Id]
-    #[ORM\Column(type: 'integer')]
+    #[ORM\Column(type: Types::INTEGER)]
     #[ORM\GeneratedValue(strategy: 'AUTO')]
     protected ?int $id = null;
 
-    #[ORM\Column(type: 'string', length: 100)]
+    #[ORM\Column(type: Types::STRING, length: 100)]
     protected ?string $title = null;
 
-    #[ORM\Column(type: 'string', length: 300, nullable: true)]
+    #[ORM\Column(type: Types::STRING, length: 300, nullable: true)]
     protected ?string $img = null;
 
-    #[ORM\Column(type: 'date')]
+    #[ORM\Column(type: Types::DATE_MUTABLE)]
     protected ?\DateTimeInterface $date = null;
 
-    #[ORM\Column(type: 'text')]
+    #[ORM\Column(type: Types::TEXT)]
     protected ?string $text = null;
 
     public function getId(): ?int

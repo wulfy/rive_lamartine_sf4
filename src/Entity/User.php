@@ -2,6 +2,7 @@
 
 namespace App\Entity;
 
+use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
@@ -10,29 +11,29 @@ use Symfony\Component\Security\Core\User\UserInterface;
 #[ORM\Table(name: 'users')]
 class User implements UserInterface, PasswordAuthenticatedUserInterface
 {
-    #[ORM\Column(type: 'integer')]
     #[ORM\Id]
+    #[ORM\Column(type: Types::INTEGER)]
     #[ORM\GeneratedValue(strategy: 'AUTO')]
     private ?int $id = null;
 
-    #[ORM\Column(type: 'string', length: 25, unique: true)]
+    #[ORM\Column(type: Types::STRING, length: 25, unique: true)]
     private ?string $username = null;
 
-    #[ORM\Column(type: 'string', length: 64)]
+    #[ORM\Column(type: Types::STRING, length: 64)]
     private ?string $password = null;
 
-    #[ORM\Column(type: 'string', length: 60, unique: true)]
+    #[ORM\Column(type: Types::STRING, length: 60, unique: true)]
     private ?string $email = null;
 
-    #[ORM\Column(name: 'is_active', type: 'boolean')]
+    #[ORM\Column(name: 'is_active', type: Types::BOOLEAN)]
     private bool $isActive = true;
 
-    #[ORM\Column(name: 'roles', type: 'simple_array')]
+    #[ORM\Column(name: 'roles', type: Types::SIMPLE_ARRAY)]
     private array $roles = [];
 
     public function getUserIdentifier(): string
     {
-        return (string) $this->username;
+        return $this->username ?? throw new \LogicException('User has no username.');
     }
 
     public function getPassword(): ?string

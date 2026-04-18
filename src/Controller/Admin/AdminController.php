@@ -23,6 +23,9 @@ class AdminController extends AbstractController
             $note->setDate(new \DateTime('today'));
         } else {
             $note = $em->getRepository(Notes::class)->find($id);
+            if (!$note) {
+                throw $this->createNotFoundException("Note $id introuvable.");
+            }
             $submitText = 'update';
         }
 
@@ -47,6 +50,6 @@ class AdminController extends AbstractController
     #[Route('/manage/delete/{id}', name: 'delete_note')]
     public function deleteNote(Database $database, int $id): Response
     {
-        return new Response();
+        return $this->redirectToRoute('edit_notes');
     }
 }
