@@ -16,7 +16,7 @@ Encore
     .addLoader({
         test: /\.(mp4|webm|ogg)$/,
         type: 'asset/resource',
-        generator: { filename: '[name].[contenthash][ext]' },
+        generator: { filename: '[name][ext]' },
     })
 ;
 
