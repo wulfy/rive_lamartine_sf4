@@ -1,0 +1,17 @@
+[variables]
+NIXPACKS_PHP_ROOT_DIR = "/app/public"
+APP_ENV = "prod"
+APP_DEBUG = "0"
+
+[phases.build]
+cmds = [
+    "composer install --no-dev --optimize-autoloader --no-interaction",
+    "npm install",
+    "npm run build",
+    "mkdir -p var/cache/prod var/log",
+    "php bin/console doctrine:migrations:migrate --no-interaction --allow-no-migration",
+    "php bin/console cache:clear --env=prod --no-warmup",
+    "php bin/console cache:warmup --env=prod --no-optional-warmers",
+    "php bin/console assets:install public --env=prod",
+    "chmod -R 777 var",
+]

@@ -1,47 +1,42 @@
-//requires used by encore
-require('../css/app.css');
-// Load all images from images
-require.context('../images', false, /\.png$|.ico$|.jpg$|.mp4$/);
-  /**
-  MANAGE PAGE SCROLLING WITH ANCHOR
+import '../css/app.css';
+import $ from 'jquery';
 
-  @author:ludovic
-  **/
-  var is_chrome = navigator.userAgent.toLowerCase().indexOf('chrome') > -1;
-  var is_safari = navigator.userAgent.toLowerCase().indexOf('safari') > -1;
+const imagesCtx = require.context('../images', false, /\.(png|ico|jpe?g)$/);
+imagesCtx.keys().forEach(imagesCtx);
 
-  function scrollToId(id,callback)
-  {
-      $('html').animate({scrollTop: $(id).offset().top},1000,null,callback);
-  }
+const videosCtx = require.context('../images', false, /\.mp4$/);
+videosCtx.keys().forEach(videosCtx);
 
-(function($){
+/**
+ * MANAGE PAGE SCROLLING WITH ANCHOR
+ * @author ludovic
+ */
+function scrollToId(id, callback) {
+    $('html').animate({ scrollTop: $(id).offset().top }, 1000, null, callback);
+}
 
-   $( document ).ready(function() {
+$(function () {
+    $('.action').on('click', function () {
+        scrollToId($(this).data('target'));
+    });
 
-        $('.action').click(function() {scrollToId($(this).data("target"))});
-         $('#scrolltop').click(function() {scrollToId("#top")});
-        $('.action').hover(
-              function() {
-                  $(this).parent().find('.bouton').addClass("move");
-                  $(this).parent().find('.hvr-sweep-to-right').addClass("animate");
-     
-                });
-        $('.action').mouseout(
-              function() {
-                  $(this).parent().find('.bouton').removeClass("move");
-                  $(this).parent().find('.hvr-sweep-to-right').removeClass("animate");
-                });
+    $('#scrolltop').on('click', function () {
+        scrollToId('#top');
+    });
 
-        $(document).on( 'scroll', function(){
-   
-          if ($(window).scrollTop() > 100) {
+    $('.action').on('mouseenter', function () {
+        $(this).parent().find('.bouton').addClass('move');
+        $(this).parent().find('.hvr-sweep-to-right').addClass('animate');
+    }).on('mouseleave', function () {
+        $(this).parent().find('.bouton').removeClass('move');
+        $(this).parent().find('.hvr-sweep-to-right').removeClass('animate');
+    });
+
+    $(document).on('scroll', function () {
+        if ($(window).scrollTop() > 100) {
             $('.scroll-top-wrapper').addClass('show');
-          } else {
+        } else {
             $('.scroll-top-wrapper').removeClass('show');
-          }
-        });
-  });
-
-})(jQuery); 
-        
+        }
+    });
+});
